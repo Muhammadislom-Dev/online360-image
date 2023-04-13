@@ -1,0 +1,41 @@
+.drop-list {
+  border: 2px dashed rgb(156, 153, 153);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.App {
+  padding: 50px;
+}
+
+.App-list {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.drop-item {
+  background-color: dodgerblue;
+  border-radius: 10px;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  margin: 25px 0;
+  flex-direction: column;
+  align-items: center;
+}
+
+.drop-item h3 {
+  margin-top: 5px;
+  margin-bottom: 0;
+  color: #fff;
+  font-weight: 400;
+}
+
+.drop-icon {
+  width: 50px;
+  height: 50px;
+}

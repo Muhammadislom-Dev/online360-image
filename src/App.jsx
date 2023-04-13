@@ -1,5 +1,6 @@
 import React from "react";
 import DropFileInput from "./components/DropFileInput";
+import "./App.css";
 
 function App() {
   const onFileChange = (files) => {
@@ -7,9 +8,12 @@ function App() {
   };
 
   return (
-    <div className="box">
-      <h2 className="header">React drop files input</h2>
-      <DropFileInput onFileChange={(files) => onFileChange(files)} />
+    <div className="App">
+      <div className="App-list">
+        <div className="box">
+          <DropFileInput onFileChange={(files) => onFileChange(files)} />
+        </div>
+      </div>
     </div>
   );
 }

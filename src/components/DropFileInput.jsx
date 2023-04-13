@@ -1,10 +1,12 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "./DropfileInput.css";
-import { ImageConfig } from "../../config/ImageConfig";
-import uploadImg from "../../assets/cloud-upload-regular-240.png";
+import { ImageConfig } from "../config/ImageConfig";
+import uploadImg1 from "../assets/cloud-upload-regular-240.png";
+import home from "../assets/photo.svg";
 
 const DropFileInput = (props) => {
+  const [uploadImg, setuploadImg] = useState(null);
   const wrapperRef = useRef(null);
 
   const [fileList, setFileList] = useState([]);
@@ -31,8 +33,10 @@ const DropFileInput = (props) => {
     props.onFileChange(updatedList);
   };
 
+  console.log(fileList);
+
   return (
-    <>
+    <div className="drop-list">
       <div
         ref={wrapperRef}
         className="drop-file-input"
@@ -40,36 +44,48 @@ const DropFileInput = (props) => {
         onDragLeave={onDragLeave}
         onDrop={onDrop}>
         <div className="drop-file-input__label">
-          <img src={uploadImg} alt="" />
-          <p>Drag & Drop your files here</p>
+          <img src={uploadImg1} alt="" className="drop-image" />
         </div>
-        <input type="file" value="" onChange={onFileDrop} />
+        <input
+          accept="image/png, image/gif, image/jpeg, image/jpg"
+          type="file"
+          value=""
+          onChange={onFileDrop}
+        />
+      </div>
+      <div className="drop-item">
+        <img src={home} alt="" className="drop-icon" />
+        <h3>Добавить</h3>
       </div>
       {fileList.length > 0 ? (
         <div className="drop-file-preview">
-          <p className="drop-file-preview__title">Ready to upload</p>
           {fileList.map((item, index) => (
             <div key={index} className="drop-file-preview__item">
-              <img
-                src={
-                  ImageConfig[item.type.split("/")[1]] || ImageConfig["default"]
-                }
-                alt=""
-              />
-              <div className="drop-file-preview__item__info">
-                <p>{item.name}</p>
-                <p>{item.size}B</p>
+              <div className="drop-items">
+                <img
+                  src={
+                    ImageConfig[item.type.split("/")[1]] ||
+                    ImageConfig["default"]
+                  }
+                  alt=""
+                  className="drop-upload-file"
+                />
+                <input
+                  type="text"
+                  placeholder="Name...."
+                  className="drop-input"
+                />
               </div>
-              <span
+              <button
                 className="drop-file-preview__item__del"
                 onClick={() => fileRemove(item)}>
-                x
-              </span>
+                &times;
+              </button>
             </div>
           ))}
         </div>
       ) : null}
-    </>
+    </div>
   );
 };
 
