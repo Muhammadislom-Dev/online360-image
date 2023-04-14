@@ -1,13 +1,14 @@
-.drop-file-input {
-  position: relative;
-  width: 400px;
-  height: 200px;
-  border: 2px dashed var(--border-color);
-  border-radius: 20px;
+.drop-page {
+  border: 2px dashed rgb(156, 153, 153);
+  border-radius: 10px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background-color: var(--input-bg);
+  flex-direction: column;
+  align-items: center;
+  width: 1100px;
+  margin: 0 auto;
+  background-color: #f2f2f2;
+  margin-bottom: 15px;
 }
 
 .drop-file-input input {
@@ -27,7 +28,6 @@
 
 .drop-file-input__label {
   text-align: center;
-  color: var(--txt-second-color);
   font-weight: 600;
   padding: 10px;
 }
@@ -46,8 +46,7 @@
   position: relative;
   display: flex;
   margin-bottom: 10px;
-  background-color: var(--input-bg);
-  padding: 15px;
+  padding: 10px;
   border-radius: 20px;
 }
 
@@ -89,17 +88,26 @@
   border: 1px solid rgb(177, 170, 170);
 }
 
-.drop-input::placeholder{
+.drop-input::placeholder {
   font-size: 16px;
 }
 
 .drop-upload-file {
-  width: 230px;
+  width: 200px;
   height: 200px;
   border-radius: 8px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .drop-file-preview {
   display: flex;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  height: 580px;
+  width: 1060px;
+  margin: 20px auto;
+  margin-bottom: 50px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 25px;
 }

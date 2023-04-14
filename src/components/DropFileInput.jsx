@@ -1,12 +1,10 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "./DropfileInput.css";
-import { ImageConfig } from "../config/ImageConfig";
 import uploadImg1 from "../assets/cloud-upload-regular-240.png";
 import home from "../assets/photo.svg";
 
 const DropFileInput = (props) => {
-  const [uploadImg, setuploadImg] = useState(null);
   const wrapperRef = useRef(null);
 
   const [fileList, setFileList] = useState([]);
@@ -33,29 +31,29 @@ const DropFileInput = (props) => {
     props.onFileChange(updatedList);
   };
 
-  console.log(fileList);
-
   return (
     <div className="drop-list">
-      <div
-        ref={wrapperRef}
-        className="drop-file-input"
-        onDragEnter={onDragEnter}
-        onDragLeave={onDragLeave}
-        onDrop={onDrop}>
-        <div className="drop-file-input__label">
-          <img src={uploadImg1} alt="" className="drop-image" />
+      <div className="drop-page">
+        <div
+          ref={wrapperRef}
+          className="drop-file-input"
+          onDragEnter={onDragEnter}
+          onDragLeave={onDragLeave}
+          onDrop={onDrop}>
+          <div className="drop-file-input__label">
+            <img src={uploadImg1} alt="" className="drop-image" />
+          </div>
+          <input
+            accept="image/png, image/gif, image/jpeg, image/jpg"
+            type="file"
+            value=""
+            onChange={onFileDrop}
+          />
         </div>
-        <input
-          accept="image/png, image/gif, image/jpeg, image/jpg"
-          type="file"
-          value=""
-          onChange={onFileDrop}
-        />
-      </div>
-      <div className="drop-item">
-        <img src={home} alt="" className="drop-icon" />
-        <h3>Добавить</h3>
+        <div className="drop-item">
+          <img src={home} alt="" className="drop-icon" />
+          <h3>Добавить</h3>
+        </div>
       </div>
       {fileList.length > 0 ? (
         <div className="drop-file-preview">
@@ -63,10 +61,7 @@ const DropFileInput = (props) => {
             <div key={index} className="drop-file-preview__item">
               <div className="drop-items">
                 <img
-                  src={
-                    ImageConfig[item.type.split("/")[1]] ||
-                    ImageConfig["default"]
-                  }
+                  src={URL.createObjectURL(item)}
                   alt=""
                   className="drop-upload-file"
                 />
