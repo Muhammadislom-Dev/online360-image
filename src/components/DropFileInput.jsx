@@ -3,16 +3,20 @@ import PropTypes from "prop-types";
 import "./DropfileInput.css";
 import uploadImg1 from "../assets/cloud-upload-regular-240.png";
 import home from "../assets/photo.svg";
+import ImageCard from "./ImageCard/ImageCard";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+import axios from "axios";
 
 const DropFileInput = (props) => {
   const wrapperRef = useRef(null);
 
   const [fileList, setFileList] = useState([]);
+  const [picture, setPicture] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
 
   const onDragEnter = () => wrapperRef.current.classList.add("dragover");
-
   const onDragLeave = () => wrapperRef.current.classList.remove("dragover");
-
   const onDrop = () => wrapperRef.current.classList.remove("dragover");
 
   const onFileDrop = (e) => {
@@ -31,6 +35,11 @@ const DropFileInput = (props) => {
     props.onFileChange(updatedList);
   };
 
+  const onChangePicture = (data) => {
+    setPicture(data);
+  };
+
+
   return (
     <div className="drop-list">
       <div className="drop-page">
@@ -47,7 +56,10 @@ const DropFileInput = (props) => {
             accept="image/png, image/gif, image/jpeg, image/jpg"
             type="file"
             value=""
-            onChange={onFileDrop}
+            onChange={(e) => {
+              onFileDrop()
+              onChangePicture(e.target.files[0]);
+            }}
           />
         </div>
         <div className="drop-item">
@@ -57,27 +69,7 @@ const DropFileInput = (props) => {
       </div>
       {fileList.length > 0 ? (
         <div className="drop-file-preview">
-          {fileList.map((item, index) => (
-            <div key={index} className="drop-file-preview__item">
-              <div className="drop-items">
-                <img
-                  src={URL.createObjectURL(item)}
-                  alt=""
-                  className="drop-upload-file"
-                />
-                <input
-                  type="text"
-                  placeholder="Name...."
-                  className="drop-input"
-                />
-              </div>
-              <button
-                className="drop-file-preview__item__del"
-                onClick={() => fileRemove(item)}>
-                &times;
-              </button>
-            </div>
-          ))}
+          <ImageCard fileList={fileList} fileRemove={fileRemove} />
         </div>
       ) : null}
     </div>

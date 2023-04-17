@@ -1,128 +1,68 @@
-import React from "react";
-import image1 from "../../assets/image1.png";
-import image2 from "../../assets/image2.png";
-import image3 from "../../assets/image3.png";
-import image4 from "../../assets/image4.png";
-import image5 from "../../assets/image5.png";
-import { useState } from "react";
+import React, { Component } from "react";
+import myImage from "../../assets/alma.jpg";
+import myImage2 from "../../assets/milan.jpg";
 import { Pannellum } from "pannellum-react";
 
-function Panellum() {
-  const Scenes = {
-    image1: {
-      title: "View-1",
-      image: image1,
-      pitch: -15,
-      yaw: -2,
-      hotSpot: {
-        nexScene: {
-          type: "custom",
-          pitch: -8,
-          yaw: 12,
-          cssClass: "moveScene",
-          scene: "image2",
-        },
-      },
-    },
-    image2: {
-      title: "View-2",
-      image: image2,
-      pitch: 10,
-      yaw: 180,
-      hotSpot: {
-        scene: "image1",
-      },
-    },
+export default class ImageDemo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mediaPhoto: myImage,
+      yaww: 180,
+      test: false,
+      updateText: "initial",
+      author: "author",
+    };
+    this.ref = React.createRef();
+  }
 
-    image3: {
-      title: "View-3",
-      image: image3,
-      pitch: 10,
-      yaw: 180,
-      hotSpot: {
-        scene: "image3",
-      },
-    },
-
-    image4: {
-      title: "View-4",
-      image: image4,
-      pitch: 10,
-      yaw: 180,
-      hotSpot: {
-        scene: "image4",
-      },
-    },
-
-    image5: {
-      title: "View-5",
-      image: image5,
-      pitch: 10,
-      yaw: 180,
-      hotSpot: {
-        scene: "image5",
-      },
-    },
+  hanldeClickImage = (evt, args) => {
+    console.log(args.name);
+    this.setState({
+      mediaPhoto: myImage2,
+    });
   };
 
-  const [scene, setScene] = useState(Scenes.image1);
-  return (
-    <div>
-      <Pannellum
-        width={"100%"}
-        height={"100vh"}
-        title={scene.title}
-        image={scene.image}
-        pitch={0.28}
-        yaw={0}
-        hfov={130}
-        autoLoad
-        showControls={false}
-        showFullscreenCtrl={false}
-        showZoomCtrl={false}
-        orientationOnByDefault={true}>
-        <Pannellum.Hotspot
-          type="custom"
-          pitch={15}
-          yaw={100}
-          name="image1"
-          handleClick={(evt, name) => setScene(Scenes.image1)}
-        />
+  handleClick = () => {
+    this.setState({
+      mediaPhoto: myImage2,
+      test: false,
+    });
+  };
 
-        <Pannellum.Hotspot
-          type="custom"
-          pitch={15}
-          yaw={-1}
-          name="image2"
-          handleClick={(evt, name) => setScene(Scenes.image2)}
-        />
+  render() {
+    return (
+      <div className="image_main">
+        <div className="pannellum_div">
+          <Pannellum
+            ref={this.ref}
+            width="1200px"
+            height="700px"
+            image={this.state.mediaPhoto}
+            pitch={10}
+            yaw={this.state.yaww}
+            hfov={120}
+            autoLoad
+            author={this.state.author}
+            title="">
+            <Pannellum.Hotspot
+              type="info"
+              pitch={11}
+              yaw={-167}
+              text="Info Hotspot Text 3"
+              URL="https://github.com/farminf"
+            />
 
-        <Pannellum.Hotspot
-          type="custom"
-          pitch={15}
-          yaw={60}
-          name="image3"
-          handleClick={(evt, name) => setScene(Scenes.image3)}
-        />
-
-        <Pannellum.Hotspot
-          type="custom"
-          pitch={15}
-          yaw={140}
-          name="image4"
-          handleClick={(evt, name) => setScene(Scenes.image4)}
-        />
-
-        <Pannellum.Hotspot
-          type="custom"
-          pitch={15}
-          yaw={250}
-          name="image5"
-          handleClick={(evt, name) => setScene(Scenes.image5)}
-        />
-      </Pannellum>
-    </div>
-  );
+            <Pannellum.Hotspot
+              type="custom"
+              pitch={31}
+              yaw={150}
+              handleClick={(evt, args) => this.hanldeClickImage(evt, args)}
+              handleClickArg={{ name: "test" }}
+            />
+          </Pannellum>
+        </div>
+      </div>
+    );
+  }
 }
-
-export default Panellum;
